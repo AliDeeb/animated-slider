@@ -1,6 +1,6 @@
 {
-    "name": "animated_range_slider",
-    "short_name": "animated_range_slider",
+    "name": "animated_slider",
+    "short_name": "animated_slider",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

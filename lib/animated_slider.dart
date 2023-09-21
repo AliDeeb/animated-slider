@@ -4,8 +4,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AnimatedRangeSlider extends StatefulWidget {
-  const AnimatedRangeSlider({
+class AnimatedSlider extends StatefulWidget {
+  const AnimatedSlider({
     super.key,
     required this.width,
     required this.height,
@@ -37,10 +37,10 @@ class AnimatedRangeSlider extends StatefulWidget {
   final void Function(int value)? onChanged;
 
   @override
-  State<AnimatedRangeSlider> createState() => _AnimatedRangeSliderState();
+  State<AnimatedSlider> createState() => _AnimatedSliderState();
 }
 
-class _AnimatedRangeSliderState extends State<AnimatedRangeSlider>
+class _AnimatedSliderState extends State<AnimatedSlider>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> bezierAnimation;
@@ -106,7 +106,7 @@ class _AnimatedRangeSliderState extends State<AnimatedRangeSlider>
         animation: controller,
         builder: (context, child) {
           return CustomPaint(
-            painter: AnimatedRangeSliderPainter(
+            painter: AnimatedSliderPainter(
               postion: hDragPostion,
               bezierHeight: bezierAnimation.value,
               circleRadius: circleRadius,
@@ -245,8 +245,8 @@ class _AnimatedRangeSliderState extends State<AnimatedRangeSlider>
   }
 }
 
-class AnimatedRangeSliderPainter extends CustomPainter {
-  AnimatedRangeSliderPainter({
+class AnimatedSliderPainter extends CustomPainter {
+  AnimatedSliderPainter({
     required this.postion,
     required this.bezierHeight,
     required this.circleRadius,

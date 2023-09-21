@@ -1,4 +1,4 @@
-import 'package:animated_range_slider/animated_range_slider.dart';
+import 'package:animated_slider/animated_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Animated range slider',
+      title: 'Animated slider',
       home: MyHomePage(),
     );
   }
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            AnimatedRangeSlider(
+            AnimatedSlider(
               width: MediaQuery.of(context).size.width,
               height: 125,
               minRange: 40,
