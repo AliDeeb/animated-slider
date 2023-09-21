@@ -1,4 +1,6 @@
+import 'package:animated_range_slider/animated_range_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Animated range slider',
       home: MyHomePage(),
     );
@@ -25,8 +28,45 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int weight = 0;
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "What is your weight ?",
+              style: TextStyle(
+                fontSize: 32.0,
+                fontFamily: GoogleFonts.poppins().fontFamily,
+              ),
+            ),
+            Text(
+              "$weight",
+              style: TextStyle(
+                fontSize: 36.0,
+                fontFamily: GoogleFonts.poppins().fontFamily,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            AnimatedRangeSlider(
+              width: MediaQuery.of(context).size.width,
+              height: 125,
+              minRange: 40,
+              maxRange: 120,
+              onChanged: (value) {
+                setState(() {
+                  weight = value;
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
