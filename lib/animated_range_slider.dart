@@ -11,6 +11,14 @@ class AnimatedRangeSlider extends StatefulWidget {
     required this.height,
     this.minRange = 0,
     this.maxRange = 100,
+    this.dotColor = Colors.black,
+    this.lineColor = Colors.black,
+    this.lineStrokeWidth = 1.5,
+    this.inactiveWindowColor = Colors.transparent,
+    this.activeWindowColor = Colors.black,
+    this.activeValueColor = Colors.white,
+    this.inactiveValueColor = Colors.black,
+    this.minmaxRangeStyle,
     this.onChanged,
   }) : assert(maxRange > minRange);
 
@@ -18,6 +26,14 @@ class AnimatedRangeSlider extends StatefulWidget {
   final double height;
   final int minRange;
   final int maxRange;
+  final Color dotColor;
+  final Color lineColor;
+  final double lineStrokeWidth;
+  final Color activeWindowColor;
+  final Color inactiveWindowColor;
+  final Color activeValueColor;
+  final Color inactiveValueColor;
+  final TextStyle? minmaxRangeStyle;
   final void Function(int value)? onChanged;
 
   @override
@@ -65,13 +81,13 @@ class _AnimatedRangeSliderState extends State<AnimatedRangeSlider>
     ).animate(controller);
 
     windowColorAnimation = ColorTween(
-      begin: Colors.transparent,
-      end: Colors.black,
+      begin: widget.inactiveWindowColor,
+      end: widget.activeWindowColor,
     ).animate(controller);
 
     textColorAnimation = ColorTween(
-      begin: Colors.black,
-      end: Colors.white,
+      begin: widget.inactiveValueColor,
+      end: widget.activeValueColor,
     ).animate(controller);
 
     windowOffsetYAnimation = Tween<double>(
@@ -100,6 +116,10 @@ class _AnimatedRangeSliderState extends State<AnimatedRangeSlider>
               windowOffsetY: windowOffsetYAnimation.value,
               maxRange: widget.maxRange,
               minRange: widget.minRange,
+              circleColor: widget.dotColor,
+              lineColor: widget.lineColor,
+              lineStrokeWidth: widget.lineStrokeWidth,
+              minmaxRangeStyle: widget.minmaxRangeStyle,
               onChanged: (value) {
                 selectedValue = value;
               },
@@ -125,13 +145,13 @@ class _AnimatedRangeSliderState extends State<AnimatedRangeSlider>
     ).animate(controller);
 
     windowColorAnimation = ColorTween(
-      begin: Colors.transparent,
-      end: Colors.black,
+      begin: widget.inactiveWindowColor,
+      end: widget.activeWindowColor,
     ).animate(controller);
 
     textColorAnimation = ColorTween(
-      begin: Colors.black,
-      end: Colors.white,
+      begin: widget.inactiveValueColor,
+      end: widget.activeValueColor,
     ).animate(controller);
 
     windowOffsetYAnimation = Tween<double>(
@@ -198,13 +218,13 @@ class _AnimatedRangeSliderState extends State<AnimatedRangeSlider>
     ]).animate(controller);
 
     windowColorAnimation = ColorTween(
-      begin: Colors.black,
-      end: Colors.transparent,
+      begin: widget.activeWindowColor,
+      end: widget.inactiveWindowColor,
     ).animate(controller);
 
     textColorAnimation = ColorTween(
-      begin: Colors.white,
-      end: Colors.black,
+      begin: widget.activeValueColor,
+      end: widget.inactiveValueColor,
     ).animate(controller);
 
     windowOffsetYAnimation = Tween<double>(
@@ -231,22 +251,30 @@ class AnimatedRangeSliderPainter extends CustomPainter {
     required this.bezierHeight,
     required this.circleRadius,
     required this.circlePostionY,
+    required this.circleColor,
     required this.windowColor,
     required this.textColor,
     required this.windowOffsetY,
     required this.maxRange,
     required this.minRange,
+    required this.lineColor,
+    required this.lineStrokeWidth,
+    required this.minmaxRangeStyle,
     required this.onChanged,
   });
   final double postion;
   final double bezierHeight;
   final double circleRadius;
   final double circlePostionY;
+  final Color circleColor;
   final Color windowColor;
   final Color textColor;
   final double windowOffsetY;
   final int maxRange;
   final int minRange;
+  final Color lineColor;
+  final double lineStrokeWidth;
+  final TextStyle? minmaxRangeStyle;
   final Function(int value) onChanged;
 
   @override
@@ -270,9 +298,9 @@ class AnimatedRangeSliderPainter extends CustomPainter {
 
   void _drawBezierLine(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.black
+      ..color = lineColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.5;
+      ..strokeWidth = lineStrokeWidth;
 
     double linePostionY = size.height / 2;
     Offset sliderPostion = Offset(postion, linePostionY);
@@ -305,7 +333,7 @@ class AnimatedRangeSliderPainter extends CustomPainter {
   }
 
   void _drawCircle(Canvas canvas, Size size, double radius, Offset pos) {
-    final circlePaint = Paint()..color = Colors.black;
+    final circlePaint = Paint()..color = circleColor;
     canvas.drawCircle(pos, radius, circlePaint);
   }
 
@@ -369,9 +397,10 @@ class AnimatedRangeSliderPainter extends CustomPainter {
     final paragraphBuilder = ui.ParagraphBuilder(ui.ParagraphStyle())
       ..pushStyle(
         ui.TextStyle(
-          color: Colors.grey,
-          fontSize: 14.0,
-          fontFamily: GoogleFonts.poppins().fontFamily,
+          color: minmaxRangeStyle?.color ?? Colors.grey,
+          fontSize: minmaxRangeStyle?.fontSize ?? 14.0,
+          fontFamily:
+              minmaxRangeStyle?.fontFamily ?? GoogleFonts.poppins().fontFamily,
         ),
       )
       ..addText(text);

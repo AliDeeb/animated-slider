@@ -58,6 +58,14 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 125,
               minRange: 40,
               maxRange: 120,
+              dotColor: Colors.black,
+              lineColor: Colors.black,
+              lineStrokeWidth: 1.5,
+              activeWindowColor: Colors.black,
+              inactiveWindowColor: Colors.transparent,
+              minmaxRangeStyle: null,
+              inactiveValueColor: Colors.black,
+              activeValueColor: Colors.white,
               onChanged: (value) {
                 setState(() {
                   weight = value;
